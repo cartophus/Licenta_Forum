@@ -1,0 +1,23 @@
+﻿@section content{
+
+    <div style="display:block;margin:auto;width:75%">
+        <h2>Select the photo you want to upload:</h2>
+        <br />
+        @using (Html.BeginForm("ChangeUserPhoto", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+        {
+            <div class="form-group">
+                <div class="col-md-10">
+
+                    <input type="file" name="UserPhoto" id="UserPhoto" accept=".png,.jpg,.jpeg,.gif,.tif" />
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-default" value="Update photo" />
+                </div>
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,36 @@
+﻿@model Forum.Models.ApplicationUser
+@{
+    ViewBag.Title = "Edit role";
+}
+@section content {
+
+    <div style="display:block;margin:auto;width:75%">
+        <ol class="breadcrumb">
+            <li><h3>@ViewBag.Title</h3></li>
+        </ol>
+        <form method="post" action="/Users/Edit/@Model.Id">
+            @Html.HttpMethodOverride(HttpVerbs.Put)
+            @Html.HiddenFor(m => m.Id)
+            <br />
+            <i class="glyphicon glyphicon-user"></i>
+            @Html.Label("UserName", "Username", new { @class = "" })
+            <br />
+            @Html.EditorFor(m => m.UserName)
+            <br /><br />
+            <i class="glyphicon glyphicon-envelope"></i>
+            @Html.Label("Email", "E-mail", new { @class = "" })
+            <br />
+            @Html.EditorFor(m => m.Email)
+            <br /><br />
+            <i class="glyphicon glyphicon-th-list"></i>
+            <label>Selectati rolul</label>
+            @Html.DropDownList("newRole", new SelectList(Model.AllRoles, "Value",
+           "Text", (string)ViewBag.userRole), null , new { @class = "form-control" })
+            <br />
+            <button class="vizew-btn" type="submit">
+                Modify
+            </button>
+        </form>
+    </div>
+}
+

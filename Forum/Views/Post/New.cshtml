@@ -1,0 +1,29 @@
+﻿@model Forum.Models.Post
+@{
+    ViewBag.Titlu = "Creating post";
+}
+
+@section content {
+    <div style="display:block;margin:auto;width:75%">
+        <h2>@ViewBag.Titlu</h2>
+        <form method="post" action="/Post/New">
+            @Html.HiddenFor(m => m.UserId)
+            <br />
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            @Html.Label("Title", "Post title")
+            <br />
+            @Html.TextBox("Title", null, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Title, "Title required", new { @class = "text-danger " })
+            <br /><br />
+            @Html.Label("Content", "Post content")
+            <br />
+            @Html.TextArea("Content", null, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Content, "Content field required", new { @class = "text-danger " })
+            <br /><br />
+            @Html.Hidden("Created", DateTime.Now, new { @class = "form-control" })
+            @Html.HiddenFor(m => m.UserId)
+            @Html.HiddenFor(m => m.ThreadId)
+            <button class="vizew-btn" type="submit">Add post</button>
+        </form>
+    </div>
+}

@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Titlu = "Your search results for " + "'" + ViewBag.SearchString + "':";
+}
+
+@section content {
+    <br />
+    <h2 style="text-align:center;">@ViewBag.Titlu</h2>
+    <br />
+
+    @if (!ViewBag.Threads.Equals(null))
+    {
+        foreach (Forum.Models.Thread thread in ViewBag.Threads)
+        {
+            @Html.Partial("ThreadInfo", thread);
+        }
+    }
+
+    }

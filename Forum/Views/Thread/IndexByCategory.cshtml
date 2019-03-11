@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "'" + ViewBag.Category.CategoryName + "' Category";
+}
+
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Forum.Models.Thread>
+
+@section content {
+
+    <div class="vizew-breadcrumb">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/Home/Index"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @if (TempData.ContainsKey("message"))
+    {
+        <h3 class="alert alert-info" role="alert">@ViewBag.message</h3>
+    }
+    @if (ViewBag.Validator)
+    {
+        <div style="text-align:center;"><a class="vizew-btn" href="/Thread/New/@ViewBag.Category.CategoryId">Add thread to this category</a></div>
+        <br />
+
+        <div style="text-align:center;">
+            @Html.PagedListPager(Model, page => Url.Action("IndexByCategory", new { ViewBag.Category.CategoryId, page }),
+                              new PagedListRenderOptions()
+                              {
+                                  Display = PagedListDisplayMode.IfNeeded
+                              }
+                             )
+        </div>
+
+        foreach (Forum.Models.Thread thread in Model)
+        {
+            @Html.Partial("ThreadInfo", thread);
+
+        }
+
+        <div style="text-align:center;">
+            @Html.PagedListPager(Model, page => Url.Action("IndexByCategory", new { ViewBag.Category.CategoryId, page }),
+                              new PagedListRenderOptions()
+                              {
+                                  Display = PagedListDisplayMode.IfNeeded
+                              }
+                             )
+        </div>
+
+        <div style="text-align:center;"><a class="vizew-btn" href="/Thread/New/@ViewBag.Category.CategoryId">Add thread to this category</a></div>
+        <br />
+    }
+    else
+    {
+        <h3 style="text-align:center;width:75%;display:block;margin:auto">There is no thread matching this category!</h3>
+        <br />
+        <div style="text-align:center;width:75%;display:block;margin:auto;"><a class="vizew-btn" href="/Thread/New/@ViewBag.Category.CategoryId">Start the first thread!</a></div>
+        <br />
+        <img class="img-responsive"
+             style="display:block;
+                margin: 0 auto;
+                height:10%;
+                width:75%;
+                border-radius: 100px;
+                opacity:0.6"
+             src="~/Content/Images/can-chat-chatting-362.jpg" alt="">
+    }
+}

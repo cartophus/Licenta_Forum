@@ -1,0 +1,43 @@
+﻿@model Forum.Models.Thread
+@{
+    ViewBag.Titlu = "Creating thread";
+    var catId = "";
+}
+
+@section content {
+    <div style="display:block;margin:auto;width:75%;">
+        <h2>@ViewBag.Titlu</h2>
+        
+        @if (ViewBag.Validator) { catId = ViewBag.CategoryId.ToString(); }
+
+        <form method="post" action="/Thread/New/@catId">
+            @Html.HiddenFor(m => m.UserId)
+            <br />
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            @Html.Label("Title", "Thread title")
+            <br />
+            @Html.TextBox("Title", null, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Title, "Title required", new { @class = "text-danger " })
+            <br /><br />
+            @Html.Label("Content", "Thread content")
+            <br />
+            @Html.TextArea("Content", null, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Content, "Content field required", new { @class = "text-danger " })
+            <br /><br />
+            @Html.Hidden("Created", DateTime.Now, new { @class = "form-control" })
+
+            @if (ViewBag.Validator)
+             {
+                @Html.HiddenFor(m => m.CategoryId);
+             }
+             else
+             {
+                 <label>Selectati categoria</label>
+                 @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Value", "Text"), "Select category", new { @class = "form-control" })
+             }
+
+            <br />
+            <button class="vizew-btn" type="submit">Add thread</button>
+        </form>
+    </div>
+}

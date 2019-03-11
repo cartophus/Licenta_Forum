@@ -1,0 +1,33 @@
+﻿@model Forum.Models.Thread
+
+@{
+    ViewBag.Title = "Edit Thread";
+}
+
+@section content {
+    <h2>@ViewBag.Title</h2>
+    <form method="post" action="/Thread/Edit/@Model.ThreadId">
+        @Html.HttpMethodOverride(HttpVerbs.Put)
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        @Html.HiddenFor(m => m.ThreadId)
+        <br />
+        @Html.Label("Title", "Thread title")
+        <br />
+        @Html.EditorFor(m => m.Title)
+        @Html.ValidationMessageFor(model => model.Title, "Title field required", new { @class = "text-danger " })
+        <br /><br />
+        @Html.Label("Content", "Thread content")
+        <br />
+        @Html.EditorFor(m => m.Content)
+        @Html.ValidationMessageFor(model => model.Content, "Content field required", new { @class = "text-danger " })
+        <br /><br />
+        @Html.HiddenFor(m => m.Created)
+        @Html.HiddenFor(m => m.UserId)
+        <br />
+        <label>Select category</label>
+        @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Value", "Text"), "Select categories", new { @class = "form-control" })
+        <br />
+        <button class="btn btn-sm btn-success" type="submit">Save changes</button>
+    </form>
+    }
+

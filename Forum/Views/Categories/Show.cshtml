@@ -1,0 +1,25 @@
+﻿@model Forum.Models.Category
+
+
+@{
+    ViewBag.Title = "Category display";
+}
+
+@section content {
+    <div style="width:75%;display:block;margin:auto;">
+        <h2>@ViewBag.Title</h2>
+        <h1>@Model.CategoryName</h1>
+        <br />
+
+        <a class="btn btn-sm btn-info" href="/Categories/Edit/@Model.CategoryId">Modify</a>
+        <br /><br />
+        <form method="post" action="/Categories/Delete/@Model.CategoryId">
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+            <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+        </form>
+
+        <hr />
+        <a class="btn btn-sm btn-success" href="/Categories/Index">Back to categories</a>
+        <br /><br />
+    </div>
+}

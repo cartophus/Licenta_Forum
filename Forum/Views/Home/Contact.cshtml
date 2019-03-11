@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+
+@model Forum.Models.Email
+
+@section content {
+
+    <!-- ##### Breadcrumb Area Start ##### -->
+    <div class="vizew-breadcrumb">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/Home/Index"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Contact</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcrumb Area End ##### -->
+
+    @if (TempData.ContainsKey("MailSent"))
+    {
+        <div style="width:75%;display:block;margin:auto">
+            <h3 class="alert alert-success" role="alert">@TempData["MailSent"]</h3>
+        </div>
+    }
+    else if (TempData.ContainsKey("MailFail"))
+    {
+        <div style="width:75%;display:block;margin:auto">
+            <h3 class="alert alert-danger" role="alert">@TempData["MailFail"]</h3>
+        </div>
+    }
+
+    <!-- ##### Contact Area Start ##### -->
+    <section class="contact-area mb-80">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-7 col-lg-8">
+                    <!-- Section Heading -->
+                    <div class="section-heading style-2">
+                        <h4>Contact</h4>
+                        <div class="line"></div>
+                    </div>
+
+                    <p>Don't hesitate to contact us using the form below. We appreciate all the feedback we can get. Have a great day!</p>
+
+                    <!-- Contact Form Area -->
+                    <div class="contact-form-area mt-50">
+                        <form action="/Home/Contact/" method="post">
+                            <div class="form-group">
+                                <label for="username">Username*</label>
+                                @Html.TextBoxFor(model => model.Subject, new { @class = "form-control", @id = "username" ,@cols = "30", @rows = "10"})
+                                @*<input type="text" class="form-control" id="username">*@
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message*</label>
+                                @Html.TextAreaFor(model => model.Body, new { @class = "form-control", @id = "message", @cols = "30", @rows = "10" })
+                            </div>
+                            <button class="btn vizew-btn mt-30" type="submit">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Contact Area End ##### -->
+}

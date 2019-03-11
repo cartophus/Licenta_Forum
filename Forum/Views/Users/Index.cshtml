@@ -1,0 +1,38 @@
+﻿@model Forum.Models.ApplicationUser
+@{
+
+    ViewBag.Title = "Users list";
+}
+@section content {
+    <div style="display:block;margin:auto;width:75%">
+        <br />
+        <h3>@ViewBag.Title</h3>
+        <br />
+        <div style=" display: grid;grid-template-columns:auto auto auto auto auto;padding: 10px;">
+            @foreach (var user in ViewBag.UsersList)
+            {
+                <div style="border:double;border-color:white">
+                    <div class="panel-heading">Username: @user.UserName</div>
+                    <div class="panel-body">
+                        <i class="glyphicon glyphicon-envelope"></i> E-mail:
+                        <span class="label label-default">@user.Email</span>
+
+                    </div>
+
+
+                    <div style="width:auto;float:left;clear:left;text-align:center;">
+                        <a style="float:left" class="btn btn-sm btn-success"
+                           href="/Users/Edit/@user.Id">Edit user</a>
+
+                        <form style="overflow:hidden" method="post" action="/Users/Delete/@user.Id">
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button class="btn btn-sm btn-danger" type="submit">Delete user</button>
+                        </form>
+                        <br />
+                    </div>
+                </div>
+                <br /><br /> <br />
+            }
+        </div>
+    </div>
+}

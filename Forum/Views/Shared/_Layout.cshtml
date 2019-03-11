@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Title -->
+    <title>4um - Your forum</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="~/Content/Images/4um.png">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="~/Content/style.css">
+    <link rel="stylesheet" href="~/Content/PagedList.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+
+    @*HEADER*@
+    <div>
+        @Html.Action("Header", "Shared")
+    </div>
+
+
+    @*CONTENT*@
+    <div>
+        @RenderSection("content", required: false)
+    </div>
+
+
+    @*FOOTER*@
+    <div>
+        @RenderPage("~/Views/Shared/_Footer.cshtml")
+    </div>
+
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Content/js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="~/Content/js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="~/Content/js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="~/Content/js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="~/Content/js/active.js"></script>
+    <!-- js for pie chart -->
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    @RenderSection("scripts", required: false)
+    @RenderBody()
+
+</body>
+</html>

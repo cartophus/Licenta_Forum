@@ -1,0 +1,24 @@
+﻿<div class="panel panel-default" style="border-style:dotted;border-color:lightgrey">
+    <div class="panel-heading">@Model.Title</div>
+    <div class="panel-body">
+        <strong>@Model.Content</strong>
+        <br />
+        <span class="label label-success">@Model.Created</span>
+        <br />
+        <i class="glyphicon glyphicon-user"></i>
+        <i>started by </i>
+        <strong>
+            @Model.User.UserName
+        </strong>
+    </div>
+    <div class="panel-footer">
+        <a class="btn btn-sm btn-success"
+           href="/Post/Edit/@Model.PostId">Modify post</a>
+
+        <form method="post" action="/Post/Delete/@Model.PostId">
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+            <button class="btn btn-sm btn-danger" type="submit">Delete Post</button>
+        </form>
+    </div>
+</div>
+<br />

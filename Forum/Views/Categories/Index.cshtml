@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Titlu = "Categories list:";
+}
+
+@section content {
+    <div style="width:75%;display:block;margin:auto">
+        <br />
+        <h2>@ViewBag.Titlu</h2>
+        <br />
+
+        <div style="text-align:center"><a class="vizew-btn" href="/Categories/New">Add category</a></div>
+        <br /> <br />
+
+        @if (TempData.ContainsKey("message"))
+        {
+            <h3 class="alert alert-info" role="alert">@ViewBag.message</h3>
+        }
+
+        <div style=" display: grid;grid-template-columns:auto auto auto auto auto;padding: 10px;">
+            @foreach (var category in ViewBag.Categories)
+            {
+                <div style="border-color:white;border:double;text-align:center;">
+                    <p style="font-size:larger"><strong>@category.CategoryName</strong></p>
+                    <a class="btn btn-success" style="border-radius:4px;" href="/Categories/Show/@category.CategoryId">View</a>
+                </div>
+            }
+        </div>
+        <br /> <br />
+        <div style="text-align:center"><a class="vizew-btn" href="/Categories/New">Add category</a></div>
+
+        <br /><br />
+    </div>
+}
+

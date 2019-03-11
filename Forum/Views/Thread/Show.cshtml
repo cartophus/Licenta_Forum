@@ -1,0 +1,110 @@
+﻿@model Forum.Models.Thread
+
+@{
+    ViewBag.Title = "Showing " + "'" + Model.Content + "'" + " thread";
+}
+
+@section content {
+
+    <br />
+    <hr />
+    <a class="vizew-btn" style="margin-left:5%;" href="/Thread/Index">Back to threads</a>
+    <br /><br />
+
+
+    <a class="vizew-btn" style="width:20%;height:100%;display:block;margin:auto;align-content:center;text-align:center;" href="/Post/New/@Model.ThreadId">
+        <span style="position: relative;top:33%;">Add post</span>
+    </a>
+
+    <br /><br />
+
+    <div>
+        @Html.Partial("ThreadInfo")
+    </div>
+
+
+    <br /><br />
+
+
+
+    <!-- AFISAREA TUTOROR POSTURILOR DE LA THREADUL RESPECTIV-->
+
+    @if (ViewBag.Validator)
+    {
+
+        <div style="text-align:center;display:block;margin:auto">
+            <i class="fa fa-arrow-down" style="color:white;"></i>
+        </div>
+        <br /><br />
+
+
+        <ul style="display:block;margin:auto;width:70%;border-color:lightgray;border-radius:25px;border:dashed">
+            @foreach (Forum.Models.Post post in ViewBag.Posts)
+            {
+                <div style="float:left">
+                    <div style="float:left;margin-left:20px;margin-right:20px">
+                        @{
+                            var imgSrc = Model.User.UserPhoto;
+                        }
+                        <img src="@imgSrc"
+                             style="width:105px;height:105px; background: #FFFFFF;
+                                   margin: auto;
+                                   -moz-border-radius: 60px;
+                                   border-radius: 100px;
+                                   padding: 6px;
+                                   box-shadow: 0px 0px 20px #888;" />
+
+                    </div>
+                    <div style="clear:left;">
+                        <div style="text-align:center">
+                            <i class="fa fa-user" style="color:white;"></i>
+                            <strong>
+                                @Model.User.UserName
+                            </strong>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="overflow:hidden">
+                    <li style="display:inline;">
+
+                        <!-- Single Blog Post -->
+                        <div class="single-blog-post style-2 d-flex align-items-center">
+
+                            <div class="post-content">
+                                <h6 class="post-title">@post.Title</h6>
+                                <div>
+                                    <strong>@post.Content</strong>
+                                </div>
+                                <div>
+                                    <span><i class="label label-success" aria-hidden="true"></i> @post.Created</span>
+                                </div>
+                                <div style="overflow:hidden" class="panel-footer">
+                                    <a style="float:left;" class="btn btn-sm btn-success"
+                                       href="/Post/Edit/@post.PostId">Modify post</a>
+
+                                    <form style="overflow:hidden;" method="post" action="/Post/Delete/@post.PostId">
+                                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                        <button class="btn btn-sm btn-danger" type="submit">Delete Post</button>
+                                    </form>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+
+                    </li>
+                </div>
+            }
+        </ul>
+
+    }
+    <br /><br />
+    <a class="vizew-btn" style="width:20%;height:100%;display:block;margin:auto;align-content:center;text-align:center;" href="/Post/New/@Model.ThreadId">
+        <span style="position: relative;top:33%;">Add post</span>
+    </a>
+
+    <hr />
+    <a class="vizew-btn" style="margin-left:5%;" href="/Thread/Index">Back to threads</a>
+    <br /><br /><br />
+}

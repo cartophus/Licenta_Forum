@@ -1,0 +1,91 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Latest Discussion";
+}
+
+@model IPagedList<Forum.Models.Thread>
+
+@section content {
+    <div>
+        <div class="vizew-breadcrumb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/Home/Index"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (TempData.ContainsKey("message"))
+        {
+            <div style="width:75%;display:block;margin:auto">
+                <h3 class="alert alert-info" role="alert">@ViewBag.message</h3>
+            </div>
+        }
+
+
+        <div id="chartContainer" style="height: 370px; width: 75%;display:block;margin:auto"></div>
+        <script>
+            window.onload = function () {
+
+                var chart = new CanvasJS.Chart("chartContainer", {
+	                animationEnabled: true,
+	                title: {
+		                text: "Thread distribution"
+	                },
+	                data: [{
+		                type: "doughnut",
+		                startAngle: 60,
+		                indexLabelFontSize: 16,
+		                indexLabel: "{label} - {y}",
+		                toolTipContent: "<b>{label}:</b> {y}",
+		                dataPoints: @Html.Raw(ViewBag.DataPoints)
+	                }]
+                });
+                chart.render();
+
+            }
+        </script>
+        <br />
+
+        <div style="text-align:center;">
+            <a class="vizew-btn" href="/Thread/New">Create new thread</a>
+        </div>
+        <br />
+
+        <div style="text-align:center;">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+                      new PagedListRenderOptions()
+                      {
+                          Display = PagedListDisplayMode.IfNeeded
+                      }
+                     )
+        </div>
+        @foreach (Forum.Models.Thread thread in Model)
+        {
+
+            @Html.Partial("ThreadInfo", thread);
+        }
+
+        <div style="text-align:center;">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+                         new PagedListRenderOptions() {
+                             Display = PagedListDisplayMode.IfNeeded
+                            }
+                        )
+        </div>
+
+        <div style="text-align:center;">
+            <a class="vizew-btn" href="/Thread/New">Create new thread</a>
+        </div>
+        <br />
+    </div>
+}

@@ -1,0 +1,24 @@
+﻿@model Forum.Models.Category
+@{
+    ViewBag.Title = "Category editing";
+}
+
+@section content {
+    <div style="width:75%;display:block;margin:auto;">
+        <br />
+        <h2>@ViewBag.Title</h2>
+        <form method="post" action="/Categories/Edit/@Model.CategoryId">
+            @Html.HttpMethodOverride(HttpVerbs.Put)
+            <br />
+            @Html.Label("CategoryName", "Category name")
+            <br />
+            @Html.EditorFor(m => m.CategoryName)
+            @Html.ValidationMessageFor(model => model.CategoryName, null, new { @class = "text-danger " })
+            <br /><br />
+            <button class="btn btn-sm btn-success" type="submit">Save changes</button>
+
+        </form>
+        <br />
+    </div>
+}
+

@@ -1,0 +1,32 @@
+﻿@model Forum.Models.Post
+
+@{
+    ViewBag.Title = "Edit Post";
+}
+
+@section content {
+    <h2>@ViewBag.Title</h2>
+    <form method="post" action="/Post/Edit/@Model.PostId">
+        @Html.HttpMethodOverride(HttpVerbs.Put)
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        @Html.HiddenFor(m => m.PostId)
+        <br />
+        @Html.Label("Title", "Post title")
+        <br />
+        @Html.EditorFor(m => m.Title)
+        @Html.ValidationMessageFor(model => model.Title, "Title field required", new { @class = "text-danger " })
+        <br /><br />
+        @Html.Label("Content", "Post content")
+        <br />
+        @Html.EditorFor(m => m.Content)
+        @Html.ValidationMessageFor(model => model.Content, "Content field required", new { @class = "text-danger " })
+        <br /><br />
+        @Html.HiddenFor(m => m.Created)
+        @Html.HiddenFor(m => m.UserId)
+        @Html.HiddenFor(m => m.ThreadId)
+        <br />
+        <br />
+        <button class="btn btn-sm btn-success" type="submit">Save changes</button>
+    </form>
+    }
+
