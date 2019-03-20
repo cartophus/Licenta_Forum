@@ -13,10 +13,14 @@
     <link rel="icon" href="~/Content/Images/4um.png">
 
     <!-- Stylesheet -->
+
     <link rel="stylesheet" href="~/Content/style.css">
     <link rel="stylesheet" href="~/Content/PagedList.css">
+    <link rel="stylesheet" href="~/Content/myCss.css">
 </head>
 <body>
+
+
     <!-- Preloader -->
     <div class="preloader d-flex align-items-center justify-content-center">
         <div class="lds-ellipsis">
@@ -33,16 +37,19 @@
         @Html.Action("Header", "Shared")
     </div>
 
+    <div class="backgroundImageDiv">
 
-    @*CONTENT*@
-    <div>
-        @RenderSection("content", required: false)
-    </div>
+        @*CONTENT*@
+        <div>
+            @RenderSection("content", required: false)
+        </div>
 
 
-    @*FOOTER*@
-    <div>
-        @RenderPage("~/Views/Shared/_Footer.cshtml")
+        @*FOOTER*@
+        <div>
+            @RenderPage("~/Views/Shared/_Footer.cshtml")
+        </div>
+
     </div>
 
     <!-- ##### All Javascript Script ##### -->

@@ -48,32 +48,6 @@ namespace Forum
             msg.Body = message.Body;
 
             await smtp.SendMailAsync(msg);
-
-        //    var myMessage = new SendGridMessage();
-        //    myMessage.AddTo(message.Destination);
-        //    myMessage.From = new System.Net.Mail.MailAddress("vled.nastasa@gmail.com", "4um");
-        //    myMessage.Subject = message.Subject;
-        //    myMessage.Text = message.Body;
-        //    myMessage.Html = message.Body;
-
-        //    var credentials = new NetworkCredential(
-        //               ConfigurationManager.AppSettings["mailAccount"],
-        //               ConfigurationManager.AppSettings["mailPassword"]
-        //               );
-
-        //    // Create a Web transport for sending email.
-        //    var transportWeb = new Web(credentials);
-
-        //    // Send the email.
-        //    if (transportWeb != null)
-        //    {
-        //        await transportWeb.DeliverAsync(myMessage);
-        //    }
-        //    else
-        //    {
-        //        Trace.TraceError("Failed to create Web transport.");
-        //        await Task.FromResult(0);
-        //    }
         }
     }
 

@@ -15,7 +15,7 @@ namespace Forum.Controllers
 
         public ActionResult ShowThumbsUp (int id)
         {
-            int countThumbsUp = db.VoteThreads.Where(vt => vt.Thread.ThreadId == id && vt.Opinion == "up").Count();
+            int countThumbsUp = db.VoteThreads.Where(vt => vt.Thread.ThreadId == id && vt.Opinion==1).Count();
 
             ViewBag.CountThumbsUp = countThumbsUp;
 
@@ -24,7 +24,7 @@ namespace Forum.Controllers
 
         public ActionResult ShowThumbsDown(int id)
         {
-            int countThumbsDown = db.VoteThreads.Where(vt => vt.Thread.ThreadId == id && vt.Opinion == "down").Count();
+            int countThumbsDown = db.VoteThreads.Where(vt => vt.Thread.ThreadId == id && vt.Opinion==0).Count();
 
             ViewBag.CountThumbsDown = countThumbsDown;
 
@@ -32,7 +32,7 @@ namespace Forum.Controllers
         }
 
         [Authorize(Roles = "User,Editor,Administrator")]
-        public ActionResult New(int id,string opinion)
+        public ActionResult New(int id,int opinion)
         {
             VoteThread vote = new VoteThread();
             
@@ -58,16 +58,13 @@ namespace Forum.Controllers
             db.SaveChanges();
 
 
-            int countThumbsDown = db.VoteThreads.Where(vt => vt.Thread.ThreadId == id && vt.Opinion == "down").Count();
+            int countThumbsDown = db.VoteThreads.Where(vt => vt.Thread.ThreadId == id && vt.Opinion==0).Count();
             ViewBag.CountThumbsDown = countThumbsDown;
 
-            int countThumbsUp = db.VoteThreads.Where(vt => vt.Thread.ThreadId == id && vt.Opinion == "up").Count();
+            int countThumbsUp = db.VoteThreads.Where(vt => vt.Thread.ThreadId == id && vt.Opinion==1).Count();
             ViewBag.CountThumbsUp = countThumbsUp;
 
             return RedirectToAction("Show", "Thread", new { id });
-
-            //if (opinion == "up") return PartialView("_ShowThumbsUp");
-            //return PartialView("_ShowThumbsDown");
         }
     }
 }

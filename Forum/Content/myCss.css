@@ -1,0 +1,30 @@
+﻿.sectionContainer {
+    width: 75%;
+    display: block;
+    margin: auto
+}
+
+.AdminButton {
+    background-color: yellow;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.backgroundImageDiv{
+    position:relative;
+}
+
+.backgroundImageDiv::after {
+    content: "";
+    background: url(Images/street_view.jpeg);
+    opacity: 0.1;
+    z-index:-1;
+    top: 0;
+    left: 0;
+    height:100%;
+    background-size: 100%;
+    position: absolute;
+    display:block;
+    width:100%;
+}

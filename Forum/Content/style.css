@@ -14,10 +14,11 @@
   padding: 0; }
 
 body {
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  background-color: #222627;
-  color: #a6a6a6; }
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    background-color: #222627;
+    color: #a6a6a6;
+}
 
 h1,
 h2,

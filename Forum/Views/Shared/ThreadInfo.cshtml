@@ -35,14 +35,14 @@
 
             </div>
 
-            <form method="post" style="float:left" action="/VoteThread/New/@Model.ThreadId/up">
+            <form method="post" style="float:left" action="/VoteThread/New/@Model.ThreadId/1">
                 <button class="fa fa-arrow-up" style="color:lawngreen;background:none;border:none" type="submit"></button>
                 @Html.Action("ShowThumbsUp", "VoteThread", new { @id = Model.ThreadId })
             </form>
 
 
 
-            <form method="post" style="float:left" action="/VoteThread/New/@Model.ThreadId/down">
+            <form method="post" style="float:left" action="/VoteThread/New/@Model.ThreadId/0">
                 <button class="fa fa-arrow-down" style="color:red;background:none;border:none" type="submit"></button>
                 @Html.Action("ShowThumbsDown", "VoteThread", new { @id = Model.ThreadId })
             </form>

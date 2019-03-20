@@ -25,12 +25,13 @@
 
                             @if (ViewBag.afisare == true)
                             {
-                                <div style="background-color:yellow;border:1px solid black;border-radius:10px;text-align:center;">
+
+                                <div class="AdminButton">
                                     <a href="/Users/Index">
                                         User list
                                     </a>
                                 </div>
-                                <div style="background-color:yellow;border:1px solid black;border-radius:10px;overflow:hidden;text-align:center;">
+                                <div class="AdminButton">
                                     <a href="/Categories/Index">
                                         Categories
                                     </a>
@@ -105,6 +106,8 @@
 
                                 <li><a href="/Thread/Index">Latest Discussion</a></li>
 
+                                <li><a href="/Thread/Recommendations">Your recommendations</a></li>
+
                                 <li>
                                     <a href="#">Categories</a>
                                     <ul class="dropdown">
@@ -114,7 +117,7 @@
                                         }
                                     </ul>
                                 </li>
-                               
+
                                 <li><a href="/Home/Contact">Contact</a></li>
                             </ul>
                         </div>
