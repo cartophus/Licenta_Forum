@@ -1,7 +1,30 @@
-﻿.sectionContainer {
+﻿.homePhoto {
+    display: block;
+    margin: 0 auto;
+    height: 60%;
+    width: 75%;
+    border-radius: 100px;
+}
+
+.homeDiv1 {
+    width: 48%;
+    border: 3px solid gray;
+    border-radius: 25px;
+    float: left;
+    margin-right: 4%;
+}
+
+.homeDiv2 {
+    width: 48%;
+    border: 3px solid gray;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.sectionContainer {
     width: 75%;
     display: block;
-    margin: auto
+    margin: auto;
 }
 
 .AdminButton {

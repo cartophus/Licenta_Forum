@@ -5,7 +5,8 @@
 }
 
 @section content {
-    <div style="display:block;margin:auto;width:75%;">
+    <br />
+    <div class="sectionContainer">
         <h2>@ViewBag.Titlu</h2>
         
         @if (ViewBag.Validator) { catId = ViewBag.CategoryId.ToString(); }
@@ -16,12 +17,12 @@
             @Html.ValidationSummary(false, "", new { @class = "text-danger" })
             @Html.Label("Title", "Thread title")
             <br />
-            @Html.TextBox("Title", null, new { @class = "form-control" })
+            @Html.TextBox("Title", null, new { @class = "form-control" , @style="color:white"})
             @Html.ValidationMessageFor(model => model.Title, "Title required", new { @class = "text-danger " })
             <br /><br />
             @Html.Label("Content", "Thread content")
             <br />
-            @Html.TextArea("Content", null, new { @class = "form-control" })
+            @Html.TextArea("Content", null, new { @class = "form-control", @style = "color:white" })
             @Html.ValidationMessageFor(model => model.Content, "Content field required", new { @class = "text-danger " })
             <br /><br />
             @Html.Hidden("Created", DateTime.Now, new { @class = "form-control" })
@@ -33,11 +34,12 @@
              else
              {
                  <label>Selectati categoria</label>
-                 @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Value", "Text"), "Select category", new { @class = "form-control" })
+                 @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Value", "Text"), "Select category", new { @class = "form-control", @style = "width:20%;color:white" })
              }
 
             <br />
-            <button class="vizew-btn" type="submit">Add thread</button>
+            <button class="btn btn-sm btn-success" type="submit">Add thread</button>
         </form>
+        <br />
     </div>
 }

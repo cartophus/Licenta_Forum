@@ -69,11 +69,13 @@
                       }
                      )
         </div>
+        <br />
         @foreach (Forum.Models.Thread thread in Model)
         {
 
             @Html.Partial("ThreadInfo", thread);
         }
+        <br />
 
         <div style="text-align:center;">
             @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),

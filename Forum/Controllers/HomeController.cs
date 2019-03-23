@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Forum.Models;
 using System.Net;
 using System.Net.Mail;
+using System.Configuration;
 
 namespace Forum.Controllers
 {
@@ -25,9 +26,12 @@ namespace Forum.Controllers
         [HttpPost]
         public ActionResult Contact(Forum.Models.Email model)
         {
+            string mailAccount = ConfigurationManager.AppSettings["mailAccount"];
+            string password = ConfigurationManager.AppSettings["mailPassword"];
+
             try
             {
-                MailMessage mailMsg = new MailMessage("vled.nastasa@gmail.com", "vled.nastasa@gmail.com");
+                MailMessage mailMsg = new MailMessage(mailAccount, mailAccount);
                 mailMsg.Subject = model.Subject;
                 mailMsg.Body = model.Body;
                 mailMsg.IsBodyHtml = false;
@@ -37,7 +41,7 @@ namespace Forum.Controllers
                 smtp.Port = 587;
                 smtp.EnableSsl = true;
 
-                NetworkCredential nc = new NetworkCredential("vled.nastasa@gmail.com", "Katonshido98");
+                NetworkCredential nc = new NetworkCredential(mailAccount, password);
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = nc;
                 smtp.Send(mailMsg);

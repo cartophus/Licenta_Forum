@@ -1,6 +1,6 @@
 ﻿@section content{
 
-    <div style="display:block;margin:auto;width:75%">
+    <div class="sectionContainer">
         <h2>Select the photo you want to upload:</h2>
         <br />
         @using (Html.BeginForm("ChangeUserPhoto", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))

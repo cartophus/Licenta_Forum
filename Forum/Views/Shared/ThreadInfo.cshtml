@@ -1,75 +1,55 @@
-﻿<div style="border-radius:25px;border-style:double;width:75%;display:block;margin:auto;overflow:hidden">
-    <br />
-    <div style="float:left;">
-        <div style="float:left;margin-left:20px;margin-right:20px">
-            @{
-                var imgSrc = Model.User.UserPhoto;
-            }
-            <img src="@imgSrc"
-                 style="width:160px;height:160px; background: #FFFFFF;
-                       margin: auto;
-                       -moz-border-radius: 60px;
-                       border-radius: 100px;
-                       padding: 6px;
-                       box-shadow: 0px 0px 20px #888;" />
+﻿<!-- Single Post Area -->
+<div class="sectionContainer" style="width:50%">
+    <div class="single-post-area style-2">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-6">
+                <!-- Post Thumbnail -->
+                <div class="post-thumbnail">
+                    @{
+                        var imgSrc = Model.User.UserPhoto;
+                    }
+                    <img src="@imgSrc" alt="profilepic">
 
-        </div>
-        <div style="clear:left;">
-            <div style="text-align:center">
-                <i class="fa fa-user" style="color:white;"></i>
-                <strong>
-                    @Model.User.UserName
-                </strong>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <!-- Post Content -->
+                <div class="post-content mt-0">
+                    <a href="#" class="post-cata cata-sm cata-success">@Model.Category.CategoryName</a>
+                    <a href="/Thread/Show/@Model.ThreadId" class="post-title mb-2">@Model.Title</a>
+                    <div class="post-meta d-flex align-items-center mb-2">
+                        <a href="#" class="post-author">By @Model.User.UserName</a>
+                        <i class="fa fa-circle" aria-hidden="true"></i>
+                        <a href="#" class="post-date">@Model.Created</a>
+                    </div>
+                    <p class="mb-2">@Model.Content</p>
+                    <div class="post-meta d-flex">
+                        <a href="/VoteThread/New/@Model.ThreadId/1">
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                            @Html.Action("ShowThumbsUp", "VoteThread", new { @id = Model.ThreadId })
+                        </a>
+                        <a href="/VoteThread/New/@Model.ThreadId/0">
+                            <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                            @Html.Action("ShowThumbsDown", "VoteThread", new { @id = Model.ThreadId })
+                        </a>
+                    </div>
+                    <br />
+                    @if (ViewBag.Function == "Show")
+                    {
+                        <div style="width:auto;float:left;clear:left" class="panel-footer">
+                            <a style="float:left;margin-right:1%" class="btn btn-sm btn-success" href="/Thread/Edit/@Model.ThreadId">
+                                Edit
+                            </a>
+                            <form style="overflow:hidden" method="post" action="/Thread/Delete/@Model.ThreadId">
+                                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
-
-    <div style="overflow:hidden">
-        <div style="width:66%">
-            <h3 class="panel-heading">@Model.Title</h3>
-            <div class="panel-body">
-                <strong>@Model.Content</strong>
-                <br />
-                <span class="label label-success">@Model.Created</span>
-                <br />
-
-            </div>
-
-            <form method="post" style="float:left" action="/VoteThread/New/@Model.ThreadId/1">
-                <button class="fa fa-arrow-up" style="color:lawngreen;background:none;border:none" type="submit"></button>
-                @Html.Action("ShowThumbsUp", "VoteThread", new { @id = Model.ThreadId })
-            </form>
-
-
-
-            <form method="post" style="float:left" action="/VoteThread/New/@Model.ThreadId/0">
-                <button class="fa fa-arrow-down" style="color:red;background:none;border:none" type="submit"></button>
-                @Html.Action("ShowThumbsDown", "VoteThread", new { @id = Model.ThreadId })
-            </form>
-
-        </div>
-
-        @if (ViewBag.Function == "Show")
-        {
-            <div style="width:auto;float:left;clear:left" class="panel-footer">
-                <a style="float:left" class="btn btn-sm btn-success"
-                   href="/Thread/Edit/@Model.ThreadId">Modify thread</a>
-
-                <form style="overflow:hidden" method="post" action="/Thread/Delete/@Model.ThreadId">
-                    @Html.HttpMethodOverride(HttpVerbs.Delete)
-                    <button class="btn btn-sm btn-danger" type="submit">Delete Thread</button>
-                </form>
-                <br />
-            </div>
-        }
-        else if (ViewBag.Function == "Index")
-        {
-            <div class="panel-footer" style="width:auto;float:left;clear:left;">
-                <a class="vizew-btn"
-                   href="/Thread/Show/@Model.ThreadId">Show thread</a>
-            </div>
-        }
-    </div>
-    
 </div>
+
 <br />
