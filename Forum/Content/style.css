@@ -1738,10 +1738,11 @@ input:focus {
   width: 100%; }
 
 .footer-area {
-  position: relative;
-  z-index: 1;
-  background-color: #191c1d;
-  padding-top: 70px; }
+    position: relative;
+    z-index: 1;
+    
+    padding-top: 70px;
+}
   .footer-area .footer-widget {
     position: relative;
     z-index: 1; }

@@ -38,7 +38,8 @@
         <br /><br />
 
 
-        <ul style="display:block;margin:auto;width:70%;border-color:lightgray;border-radius:25px;border:dashed">
+        <ul style="display:block;margin:auto;width:70%;border-color:lightgray;border-radius:25px;border:groove">
+            <br />
             @foreach (Forum.Models.Post post in ViewBag.Posts)
             {
                 <div style="float:left">
@@ -95,7 +96,9 @@
 
                     </li>
                 </div>
+                <br />
             }
+            <br />
         </ul>
 
     }

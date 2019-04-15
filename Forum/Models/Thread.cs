@@ -12,13 +12,17 @@ namespace Forum.Models
     {
         [Key]
         public int ThreadId { get; set; }
-        [Required(ErrorMessage ="Title field required")]
+        [Required(ErrorMessage = "Title field required")]
         public string Title { get; set; }
 
-        [Required(ErrorMessage ="Content field required")]
+        [Required(ErrorMessage = "Content field required")]
         public string Content { get; set; }
 
         public DateTime Created { get; set; }
+
+        //geolocation
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
 
         /// FK
         [Required]

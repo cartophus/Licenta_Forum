@@ -26,114 +26,6 @@ namespace Forum.Controllers
     {
         private ApplicationDbContext db = ApplicationDbContext.Create();
 
-        private static readonly string _trainDataPath = "C:\\Users\\vladi\\Desktop\\work\\An3\\Sem1\\DAW\\Forum de Discutii\\Forum\\Forum\\DataAi\\votesTrain.csv";
-        private static readonly string _testDataPath = "C:\\Users\\vladi\\Desktop\\work\\An3\\Sem1\\DAW\\Forum de Discutii\\Forum\\Forum\\DataAi\\votesTest.csv";
-        private static readonly string _modelPath = "C:\\Users\\vladi\\Desktop\\work\\An3\\Sem1\\DAW\\Forum de Discutii\\Forum\\Forum\\DataAi\\Model.zip";
-
-        [NonAction]
-        public static ITransformer Train(MLContext context)
-        {
-            IDataView dataView = context.Data.LoadFromTextFile<VoteThreadMask>(_trainDataPath, hasHeader: true, separatorChar: ',');
-
-            var pipeline = context.Transforms.CopyColumns(outputColumnName: "Label", inputColumnName: "Opinion")
-                .Append(context.Transforms.Categorical.OneHotEncoding(outputColumnName: "VoteThreadIdEncoded", inputColumnName: "VoteThreadId"))
-                .Append(context.Transforms.Categorical.OneHotEncoding(outputColumnName: "UserIdEncoded", inputColumnName: "UserId"))
-                .Append(context.Transforms.Categorical.OneHotEncoding(outputColumnName: "ThreadIdEncoded", inputColumnName: "ThreadId"))
-                .Append(context.Transforms.Concatenate("Features", "VoteThreadId", "UserIdEncoded", "ThreadIdEncoded"))
-                .Append(context.Regression.Trainers.PoissonRegression());
-
-            var model = pipeline.Fit(dataView);
-            SaveModelAsFile(context, model);
-            return model;
-                
-        }
-
-        [NonAction]
-        private static void SaveModelAsFile(MLContext mlContext, ITransformer model)
-        {
-            using (var fileStream = new FileStream(_modelPath, FileMode.Create, FileAccess.Write, FileShare.Write))
-                mlContext.Model.Save(model, fileStream);
-            Console.WriteLine("The model is saved to {0}", _modelPath);
-        }
-
-        [NonAction]
-        public static void Evaluate(MLContext context, ITransformer model)
-        {
-            IDataView dataView = context.Data.LoadFromTextFile<VoteThreadMask>(_testDataPath, hasHeader: true, separatorChar: ',');
-
-            var predictions = model.Transform(dataView);
-
-            var metrics = context.Regression.Evaluate(predictions, "Label", "Score");
-
-            Console.WriteLine();
-            Console.WriteLine($"*************************************************");
-            Console.WriteLine($"*       Model quality metrics evaluation         ");
-            Console.WriteLine($"*------------------------------------------------");
-
-            Console.WriteLine($"*       R2 Score:      {metrics.RSquared:0.##}");
-            Console.WriteLine($"*       RMS loss:      {metrics.Rms:#.##}");
-        }
-
-        [NonAction]
-        private static VoteThreadPrediction TestSinglePrediction(MLContext mlContext, VoteThread voteThread)
-        {
-            VoteThreadMask vtMask = new VoteThreadMask();
-            vtMask.VoteThreadId = voteThread.VoteThreadId;
-            vtMask.UserId = voteThread.User.Id;
-            vtMask.ThreadId = voteThread.Thread.ThreadId;
-            vtMask.Opinion = voteThread.Opinion;
-
-
-            ITransformer loadedModel;
-            using (var stream = new FileStream(_modelPath, FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-                loadedModel = mlContext.Model.Load(stream);
-            }
-            var predictionFunction = loadedModel.CreatePredictionEngine<VoteThreadMask, VoteThreadPrediction>(mlContext);
-
-            var prediction = predictionFunction.Predict(vtMask);
-
-            Console.WriteLine($"**********************************************************************");
-            Console.WriteLine($"Predicted fare: {prediction.OpinionPrediction:0.####}, actual fare: 15.5");
-            Console.WriteLine($"**********************************************************************");
-
-            return prediction;
-        }
-
-        [Authorize(Roles = "User,Editor,Administrator")]
-        public ActionResult Recommendations()
-        { 
-            var context = new MLContext(seed: 0);
-
-            var model = Train(context);
-
-            Evaluate(context, model);
-            // ---------------------------------------
-            var votes = (from vote in db.VoteThreads where vote.User.Id == User.Identity.GetUserId() select vote).ToList();
-
-            List<VoteThreadPrediction> votePredictions = null;
-
-            foreach(VoteThread vote in votes)
-            {
-                votePredictions.Add(TestSinglePrediction(context, vote));
-            }
-
-            votePredictions = votePredictions.OrderByDescending(o => o.OpinionPrediction).ToList();
-
-            //List<Thread> threads = null;
-
-            //for(int i = 0 ; i < 5; i++)
-            //{
-            //    VoteThreadPrediction vtp = votePredictions[i];
-            //    VoteThread vt = db.VoteThreads.Find(vtp.label);
-            //    threads.Add(db.Threads.Find(vt.Thread.ThreadId));
-            //}
-
-            //ViewBag.Threads = threads;
-
-            return View();
-        }
-
         public ActionResult Index(int? page)
         {
             var threads = from thread in db.Threads.Include("Category").Include("User")
@@ -184,6 +76,13 @@ namespace Forum.Controllers
             ViewBag.Category = db.Categories.Find(id);
 
             return View(threads.ToPagedList(page ?? 1, 7));
+        }
+
+        [Authorize]
+        public ActionResult NearbyThreads()
+        {
+
+            return View();
         }
 
         [Authorize(Roles = "User,Editor,Administrator")]
@@ -245,6 +144,10 @@ namespace Forum.Controllers
             Thread thread = new Thread();
             thread.Categories = GetAllCategories();
             thread.UserId = User.Identity.GetUserId();
+
+            //initialized in case of browser not supporting geolocation
+            thread.Latitude = 0;
+            thread.Longitude = 0;
 
             if (id.HasValue)
             {

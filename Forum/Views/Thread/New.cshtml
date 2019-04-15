@@ -8,16 +8,20 @@
     <br />
     <div class="sectionContainer">
         <h2>@ViewBag.Titlu</h2>
-        
+
         @if (ViewBag.Validator) { catId = ViewBag.CategoryId.ToString(); }
 
-        <form method="post" action="/Thread/New/@catId">
+        <form id="form" method="post" action="/Thread/New/@catId">
+
+            @Html.Hidden("Latitude")
+            @Html.Hidden("Longitude")
+
             @Html.HiddenFor(m => m.UserId)
             <br />
             @Html.ValidationSummary(false, "", new { @class = "text-danger" })
             @Html.Label("Title", "Thread title")
             <br />
-            @Html.TextBox("Title", null, new { @class = "form-control" , @style="color:white"})
+            @Html.TextBox("Title", null, new { @class = "form-control", @style = "color:white" })
             @Html.ValidationMessageFor(model => model.Title, "Title required", new { @class = "text-danger " })
             <br /><br />
             @Html.Label("Content", "Thread content")
@@ -28,18 +32,41 @@
             @Html.Hidden("Created", DateTime.Now, new { @class = "form-control" })
 
             @if (ViewBag.Validator)
-             {
+            {
                 @Html.HiddenFor(m => m.CategoryId);
-             }
-             else
-             {
-                 <label>Selectati categoria</label>
-                 @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Value", "Text"), "Select category", new { @class = "form-control", @style = "width:20%;color:white" })
-             }
+            }
+            else
+            {
+                <label>Selectati categoria</label>
+                @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Value", "Text"), "Select category", new { @class = "form-control", @style = "width:20%;color:white" })
+            }
 
             <br />
             <button class="btn btn-sm btn-success" type="submit">Add thread</button>
         </form>
         <br />
     </div>
+    <script>
+
+        function getGeolocation() {
+            var child = document.createTextNode("cocoloroco")
+            var form = document.getElementById("form");
+            form.appendChild(child);
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    $("#Latitude").val(pos.lat);
+                    $("#Longitude").val(pos.lng);
+                })
+            }
+        }
+
+        getGeolocation();
+
+    </script>
 }
