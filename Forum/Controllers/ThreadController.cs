@@ -19,9 +19,44 @@ using Microsoft.ML.Data;
 using Microsoft.Data.DataView;
 using Microsoft.ML.Trainers;
 using Microsoft.ML.Model;
+using System.Web.Helpers;
 
 namespace Forum.Controllers
 {
+    //for fixing Json request circular error
+    public class ThreadJson
+    {
+        public int ThreadId;
+        public string UserId;
+        public int CategoryId;
+        public string CategoryName;
+        public string UserName;
+        public string UserPhoto;
+        public string Title;
+        public string Content;
+        public double Latitude;
+        public double Longitude;
+        public int Ups;
+        public int Downs;
+
+        public ThreadJson(int threadId, string userId, int categoryId, string categoryName, string userName, string userPhoto, string title, string content, double latitude, double longitude, int ups, int downs)
+        {
+            ThreadId = threadId;
+            UserId = userId;
+            CategoryId = categoryId;
+            CategoryName = categoryName;
+            UserName = userName;
+            UserPhoto = userPhoto;
+            Title = title;
+            Content = content;
+            Latitude = latitude;
+            Longitude = longitude;
+            Ups = ups;
+            Downs = downs;
+        }
+    }
+
+
     public class ThreadController : Controller
     {
         private ApplicationDbContext db = ApplicationDbContext.Create();
@@ -78,10 +113,28 @@ namespace Forum.Controllers
             return View(threads.ToPagedList(page ?? 1, 7));
         }
 
+        
+        public JsonResult GetThreadCoords()
+        {
+            var threads = (from thread in db.Threads select thread).ToList();
+
+            List<ThreadJson> threadJsons = new List<ThreadJson>();
+
+            foreach(Thread thread in threads)
+            {
+                int ups = db.VoteThreads.Where(vt => vt.Thread.ThreadId == thread.ThreadId && vt.Opinion == 1).Count();
+
+                int downs = db.VoteThreads.Where(vt => vt.Thread.ThreadId == thread.ThreadId && vt.Opinion == 0).Count();
+
+                threadJsons.Add(new ThreadJson(thread.ThreadId, thread.UserId, thread.CategoryId, thread.Category.CategoryName, thread.User.UserName, thread.User.UserPhoto, thread.Title, thread.Content, thread.Latitude, thread.Longitude, ups, downs));
+            }
+
+            return Json(threadJsons, JsonRequestBehavior.AllowGet);
+        }
+
         [Authorize]
         public ActionResult NearbyThreads()
         {
-
             return View();
         }
 

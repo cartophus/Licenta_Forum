@@ -643,7 +643,6 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Thread.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Models\VotePost.cs" />
     <Compile Include="Models\VoteThread.cs" />
     <Compile Include="Models\VoteThreadMask.cs" />

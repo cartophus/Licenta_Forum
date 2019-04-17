@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="~/Content/style.css">
     <link rel="stylesheet" href="~/Content/PagedList.css">
     <link rel="stylesheet" href="~/Content/myCss.css">
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 
@@ -44,7 +46,7 @@
             @RenderSection("content", required: false)
         </div>
 
-
+        
         @*FOOTER*@
         <div>
             @RenderPage("~/Views/Shared/_Footer.cshtml")
@@ -52,13 +54,13 @@
 
     </div>
 
-    <!-- ##### All Javascript Script ##### -->
+    <!--Scripts-->
     <!-- Google Maps -->
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBivmkEYpHbv7hH9hnb1u-LBd-7g7rO-I4&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBivmkEYpHbv7hH9hnb1u-LBd-7g7rO-I4">
     </script>
     <!-- jQuery-2.2.4 js -->
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    
     <script src="~/Scripts/jquery-ui.js"></script>
     <script src="~/Scripts/jquery-ui.min.js"></script>
     <script src="~/Content/js/jquery/jquery-2.2.4.min.js"></script>
@@ -72,8 +74,10 @@
     <script src="~/Content/js/active.js"></script>
     <!-- js for pie chart -->
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+   
     @RenderSection("scripts", required: false)
-    @RenderBody()
+
+    
 
 </body>
 </html>

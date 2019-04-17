@@ -49,10 +49,7 @@
     <script>
 
         function getGeolocation() {
-            var child = document.createTextNode("cocoloroco")
-            var form = document.getElementById("form");
-            form.appendChild(child);
-
+            
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     var pos = {

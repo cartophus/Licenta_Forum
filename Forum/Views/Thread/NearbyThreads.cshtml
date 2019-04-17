@@ -1,1 +1,103 @@
-﻿
+﻿@section content{
+
+    <br />
+    <h2 style="text-align:center">Threads near you:</h2>
+
+    <script>
+
+        var verif;
+
+        function toRadians(angle) {
+            return angle * (Math.PI / 180);
+        }
+
+
+        //var value;
+        function isNear(result, lat, lng) {
+
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    var earthRadius = 6371; //km
+
+                    var latitudeUser = toRadians(pos.lat);
+                    var latitudeThread = toRadians(lat);
+
+                    var Δφ = toRadians(lat - pos.lat);
+                    var Δλ = toRadians(lng - pos.lng);
+
+                    var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+                        Math.cos(latitudeUser) * Math.cos(latitudeThread) *
+                        Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+
+                    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+
+                    var d = earthRadius * c;
+
+                    //if user is in range of 10km from the location where a certain thread was created
+                    if (d < 10) {
+                        $('.backgroundImageDiv > div').eq(0).append('<br /><br /><!-- Single Post Area -->\
+                                        <div class="sectionContainer" style="width:50%">\
+                                            <div class="single-post-area style-2">\
+                                                <div class="row align-items-center">\
+                                                    <div class="col-12 col-md-6">\
+                                                        <!-- Post Thumbnail -->\
+                                                        <div class="post-thumbnail">\
+                                                            <img src="'+ result.UserPhoto + '" alt="profilepic">\
+                                                        </div>\
+                                                    </div>\
+                                                    <div class="col-12 col-md-6">\
+                                                        <!-- Post Content -->\
+                                                        <div class="post-content mt-0">\
+                                                            <a href="#" class="post-cata cata-sm cata-success">'+ result.CategoryName + '</a>\
+                                                            <a href="/Thread/Show/'+ result.ThreadId + '" class="post-title mb-2">' + result.Title + '</a>\
+                                                            <div class="post-meta d-flex align-items-center mb-2">\
+                                                                <a href="#" class="post-author">By '+ result.UserName + '</a>\
+                                                                <i class="fa fa-circle" aria-hidden="true"></i>\
+                                                                <a href="#" class="post-date">'+ result.Created + '</a>\
+                                                            </div>\
+                                                            <p class="mb-2">'+ result.Content + '</p>\
+                                                            <br />\
+                                                            <div class="post-meta d-flex">\
+                                                                <a href="/VoteThread/New/'+ result.ThreadId + '/1">\
+                                                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>\
+                                                                        '+ result.Ups + '\
+                                                                </a>\
+                                                                <a href="/VoteThread/New/'+ result.ThreadId + '/0">\
+                                                                    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>\
+                                                                    '+ result.Downs + '\
+                                                                </a>\
+                                                            </div>\
+                                                        </div>\
+                                                    </div>\
+                                                </div>\
+                                            </div>\
+                                        </div>\
+                                        <br />');
+                    }
+
+                });
+            }
+        }
+
+        $(function () {
+            $.ajax({
+                url: "/Thread/GetThreadCoords",
+                dataType: "json"
+            }).done(function (result) {
+                console.log(result);
+                for (var it = 0; it < result.length; it++) {
+                    isNear(result[it], result[it].Latitude, result[it].Longitude);
+                }
+            })
+        });
+
+
+    </script>
+}

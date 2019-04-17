@@ -45,24 +45,7 @@
                                 <input type="text" name="searchString" id="topSearch" placeholder="Search...">
                                 <button type="submit" class="btn" value="Go"><i class="fa fa-search" aria-hidden="true"></i></button>
                             </form>
-                            <script type="text/javascript">
-                               @*nu merge*@
-                                $('#topSearch').autocomplete({
-                                    source: function (request, response) {
-                                        var searchString = $('#topSearch').val();
-                                        $.ajax({
-                                            type: "GET",
-                                            url: '/Thread/AutocompleteSuggestions',
-                                            data: { searchString = request.term },
-                                            success: function (data) {
-                                                response($.map(data, function (item) {
-                                                    return { lable: item, value: item }
-                                                }))
-                                            }
-                                        })
-                                    }
-                                });
-                            </script>
+                            
                         </div>
                         <!-- Login -->
                         <div>
