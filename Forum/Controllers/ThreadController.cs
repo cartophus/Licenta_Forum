@@ -122,9 +122,9 @@ namespace Forum.Controllers
 
             foreach(Thread thread in threads)
             {
-                int ups = db.VoteThreads.Where(vt => vt.Thread.ThreadId == thread.ThreadId && vt.Opinion == 1).Count();
+                int ups = db.VoteThreads.Where(vt => vt.ThreadId == thread.ThreadId && vt.Opinion == 1).Count();
 
-                int downs = db.VoteThreads.Where(vt => vt.Thread.ThreadId == thread.ThreadId && vt.Opinion == 0).Count();
+                int downs = db.VoteThreads.Where(vt => vt.ThreadId == thread.ThreadId && vt.Opinion == 0).Count();
 
                 threadJsons.Add(new ThreadJson(thread.ThreadId, thread.UserId, thread.CategoryId, thread.Category.CategoryName, thread.User.UserName, thread.User.UserPhoto, thread.Title, thread.Content, thread.Latitude, thread.Longitude, ups, downs));
             }
@@ -164,12 +164,12 @@ namespace Forum.Controllers
 
         }
 
-        public JsonResult AutocompleteSuggestions(string term)
-        {
-            var threads = db.Threads.Where(x => x.Title.Contains(term)).Select(x => x.Title).ToList();
+        //public JsonResult AutocompleteSuggestions(string term)
+        //{
+        //    var threads = db.Threads.Where(x => x.Title.Contains(term)).Select(x => x.Title).ToList();
 
-            return Json(threads, JsonRequestBehavior.AllowGet);
-        }
+        //    return Json(threads, JsonRequestBehavior.AllowGet);
+        //}
 
         [HttpPost]
         public ActionResult Search(string searchString)

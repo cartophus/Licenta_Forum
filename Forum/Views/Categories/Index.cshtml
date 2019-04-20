@@ -4,6 +4,7 @@
 }
 
 @section content {
+    <br />
     <div class="sectionContainer">
         <br />
         <h2>@ViewBag.Titlu</h2>
@@ -20,7 +21,7 @@
         <div style=" display: grid;grid-template-columns:auto auto auto auto auto;padding: 10px;">
             @foreach (var category in ViewBag.Categories)
             {
-                <div style="border-color:white;border:double;text-align:center;">
+                <div style="border-color:white;border:groove;text-align:center;">
                     <p style="font-size:larger"><strong>@category.CategoryName</strong></p>
                     <a class="btn btn-success" style="border-radius:4px;" href="/Categories/Show/@category.CategoryId">View</a>
                 </div>

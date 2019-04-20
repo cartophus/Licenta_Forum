@@ -37,6 +37,6 @@ namespace Forum.Models
         public virtual Category Category { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ApplicationUser User { get; set; }
-        public virtual ICollection<VoteThread> VoteThreads { get; set; }
+        //public virtual ICollection<VoteThread> VoteThreads { get; set; }
     }
 }

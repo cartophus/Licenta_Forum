@@ -15,7 +15,7 @@ namespace Forum.Controllers
 
         public ActionResult ShowThumbsUp (int id)
         {
-            int countThumbsUp = db.VoteThreads.Where(vt => vt.Thread.ThreadId == id && vt.Opinion==1).Count();
+            int countThumbsUp = db.VoteThreads.Where(vt => vt.ThreadId == id && vt.Opinion==1).Count();
 
             ViewBag.CountThumbsUp = countThumbsUp;
 
@@ -24,7 +24,7 @@ namespace Forum.Controllers
 
         public ActionResult ShowThumbsDown(int id)
         {
-            int countThumbsDown = db.VoteThreads.Where(vt => vt.Thread.ThreadId == id && vt.Opinion==0).Count();
+            int countThumbsDown = db.VoteThreads.Where(vt => vt.ThreadId == id && vt.Opinion==0).Count();
 
             ViewBag.CountThumbsDown = countThumbsDown;
 
@@ -38,7 +38,7 @@ namespace Forum.Controllers
             
             string userId = User.Identity.GetUserId();
 
-            var entry = db.VoteThreads.Where(vt => vt.User.Id == userId);
+            var entry = db.VoteThreads.Where(vt => vt.UserId == userId);
             bool found = entry.Any();
 
             if(found)
@@ -49,19 +49,22 @@ namespace Forum.Controllers
                 db.SaveChanges();
             }
 
-            vote.User = db.Users.Find(userId);
+            vote.UserId = userId;
+            //vote.User = db.Users.Find(userId);
 
-            vote.Thread = db.Threads.Find(id);
+            vote.ThreadId = id;
+            //vote.Thread = db.Threads.Find(id);
+
             vote.Opinion = opinion;
 
             db.VoteThreads.Add(vote);
             db.SaveChanges();
 
 
-            int countThumbsDown = db.VoteThreads.Where(vt => vt.Thread.ThreadId == id && vt.Opinion==0).Count();
+            int countThumbsDown = db.VoteThreads.Where(vt => vt.ThreadId == id && vt.Opinion==0).Count();
             ViewBag.CountThumbsDown = countThumbsDown;
 
-            int countThumbsUp = db.VoteThreads.Where(vt => vt.Thread.ThreadId == id && vt.Opinion==1).Count();
+            int countThumbsUp = db.VoteThreads.Where(vt => vt.ThreadId == id && vt.Opinion==1).Count();
             ViewBag.CountThumbsUp = countThumbsUp;
 
             return RedirectToAction("Show", "Thread", new { id });

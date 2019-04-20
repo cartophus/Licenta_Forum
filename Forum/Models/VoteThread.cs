@@ -13,11 +13,12 @@ namespace Forum.Models
         [Key]
         public int VoteThreadId { get; set; }
 
-        [Key]
-        public virtual ApplicationUser User { get; set; }
+        public string UserId { get; set; }
 
-        [Key]
-        public virtual Thread Thread { get; set; }
+        public int ThreadId { get; set; }
+
+        //public virtual ApplicationUser User { get; set; }
+        //public virtual Thread Thread { get; set; }
 
         [Required]
         public float Opinion { get; set; } //  0 1      
