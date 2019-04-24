@@ -22,6 +22,11 @@
 }
 
 
+.loginBtn {
+    float:left;
+    margin-left:8px;
+}
+
 
 @media only screen and (max-width: 766px) {
     .HeaderIcon {
@@ -74,4 +79,5 @@
     display:block;
     width:100%;
     background-repeat:no-repeat;
+    background-size:cover;
 }

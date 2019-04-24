@@ -954,7 +954,6 @@
     <Content Include="Views\Thread\New.cshtml" />
     <Content Include="Views\Thread\Show.cshtml" />
     <Content Include="Views\Shared\ThreadInfo.cshtml" />
-    <Content Include="Views\Shared\PostInfo.cshtml" />
     <Content Include="Views\Post\New.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />

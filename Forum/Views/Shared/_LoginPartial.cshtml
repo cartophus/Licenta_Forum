@@ -1,25 +1,25 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "btn btn-success", @style = "height:35px;width:65px;border:1px solid black;border-radius:3px;float:left; " }))
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "loginBtn" }))
     {
         @Html.AntiForgeryToken()
 
         <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
     }
 
-    <div class="btn btn-success" style="height:35px;width:65px;border:1px solid black;border-radius:3px;float:left;">
+    <div class = "loginBtn">
 
         @Html.ActionLink("Manage", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
     </div>
 }
 else
 {
-    <div class="btn btn-success" style="border:1px solid black;border-radius:3px;float:left;">
+    <div class = "loginBtn">
         @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
     </div>
 
-    <div class="btn btn-success" style="border:1px solid black;border-radius:3px;float:left;">
+    <div class = "loginBtn">
         @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
         
     </div>
