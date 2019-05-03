@@ -12,6 +12,7 @@
     border-radius: 25px;
     float: left;
     margin-right: 4%;
+    overflow:hidden;
 }
 
 .homeDiv2 {
@@ -33,6 +34,21 @@
         height:55px;
         width:55px;
     }
+    
+    .homeDiv1 {
+        display:block;
+        margin:auto;
+        float:initial;
+        width:95%;
+    }
+
+    .homeDiv2 {
+        display: block;
+        margin: auto;
+        float: initial;
+        width: 95%;
+    }
+
 }
 
 @media only screen and (min-width:767px) and (max-width: 1198px){
