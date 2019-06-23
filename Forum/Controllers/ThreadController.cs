@@ -113,7 +113,6 @@ namespace Forum.Controllers
             return View(threads.ToPagedList(page ?? 1, 7));
         }
 
-        
         public JsonResult GetThreadCoords()
         {
             var threads = (from thread in db.Threads select thread).ToList();
@@ -163,13 +162,6 @@ namespace Forum.Controllers
             return View(thread);
 
         }
-
-        //public JsonResult AutocompleteSuggestions(string term)
-        //{
-        //    var threads = db.Threads.Where(x => x.Title.Contains(term)).Select(x => x.Title).ToList();
-
-        //    return Json(threads, JsonRequestBehavior.AllowGet);
-        //}
 
         [HttpPost]
         public ActionResult Search(string searchString)

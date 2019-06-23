@@ -1,13 +1,13 @@
 ﻿@model Forum.Models.ApplicationUser
 @{
-    ViewBag.Title = "Edit role";
+    ViewBag.Title = "Edit user";
 }
 @section content {
+    <br />
+    <div class="sectionContainer" style="min-height:70vh">
 
-    <div class="sectionContainer">
-        <ol class="breadcrumb">
-            <li><h3>@ViewBag.Title</h3></li>
-        </ol>
+        <h2>@ViewBag.Title</h2>
+
         <form method="post" action="/Users/Edit/@Model.Id">
             @Html.HttpMethodOverride(HttpVerbs.Put)
             @Html.HiddenFor(m => m.Id)
@@ -15,12 +15,12 @@
             <i class="glyphicon glyphicon-user"></i>
             @Html.Label("UserName", "Username", new { @class = "" })
             <br />
-            @Html.EditorFor(m => m.UserName)
+            @Html.EditorFor(m => m.UserName, new { htmlAttributes = new { @class = "form-control", @width = "75%" }, })
             <br /><br />
             <i class="glyphicon glyphicon-envelope"></i>
             @Html.Label("Email", "E-mail", new { @class = "" })
             <br />
-            @Html.EditorFor(m => m.Email)
+            @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control", @width = "75%" }, })
             <br /><br />
             <i class="glyphicon glyphicon-th-list"></i>
             <label>Selectati rolul</label>

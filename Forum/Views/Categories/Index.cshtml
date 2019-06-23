@@ -5,7 +5,7 @@
 
 @section content {
     <br />
-    <div class="sectionContainer">
+    <div class="sectionContainer" style="min-height:70vh;">
         <br />
         <h2>@ViewBag.Titlu</h2>
         <br />
@@ -21,10 +21,18 @@
         <div style=" display: grid;grid-template-columns:auto auto auto auto auto;padding: 10px;">
             @foreach (var category in ViewBag.Categories)
             {
-                <div style="border-color:white;border:groove;text-align:center;">
-                    <p style="font-size:larger"><strong>@category.CategoryName</strong></p>
-                    <a class="btn btn-success" style="border-radius:4px;" href="/Categories/Show/@category.CategoryId">View</a>
-                </div>
+            <div style="border-color:white;border:groove;text-align:center;">
+                <p style="font-size:larger"><h4>@category.CategoryName</h4></p>
+
+                <a class="btn btn-sm btn-info" style="float:left;margin-left:35px;" href="/Categories/Edit/@category.CategoryId">Modify</a>
+
+                <form method="post" style="float:left;margin-left:40px;margin-right:20px" action="/Categories/Delete/@category.CategoryId">
+                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                    <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                </form>
+
+                <br /><br />
+            </div>
             }
         </div>
         <br /> <br />

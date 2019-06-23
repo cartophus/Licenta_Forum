@@ -1,5 +1,5 @@
 ﻿<!-- Single Post Area -->
-<div class="sectionContainer" style="width:50%">
+<div class="sectionContainer" style="width:50%;min-height:unset;">
     <div class="single-post-area style-2">
         <div class="row align-items-center">
             <div class="col-12 col-md-6">
@@ -34,7 +34,7 @@
                         </a>
                     </div>
                     <br />
-                    @if (ViewBag.Function == "Show")
+                    @if (ViewBag.Function == "Show" && (ViewBag.afisareButoane == true && Model.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin))
                     {
                         <div style="width:auto;float:left;clear:left" class="panel-footer">
                             <a style="float:left;margin-right:1%" class="btn btn-sm btn-success" href="/Thread/Edit/@Model.ThreadId">

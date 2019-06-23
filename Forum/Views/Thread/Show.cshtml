@@ -25,8 +25,6 @@
 
     <br /><br />
 
-
-
     <!-- AFISAREA TUTOROR POSTURILOR DE LA THREADUL RESPECTIV-->
 
     @if (ViewBag.Validator)
@@ -42,7 +40,7 @@
             <br />
             @foreach (Forum.Models.Post post in ViewBag.Posts)
             {
-                <li class="sectionContainer" style="width:75%">
+                <li class="sectionContainer" style="width:75%;min-height:unset;">
                     <div class="vizew-post-author d-flex align-items-center py-5">
                         <div class="post-author-thumb">
                             @{
@@ -54,9 +52,25 @@
                             <a href="#" class="author-name">@post.User.UserName</a>
                             <p style="word-break:break-all;">@post.Content</p>
                         </div>
+
+                        @if (ViewBag.afisareButoane == true && Model.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin)
+                        {
+                            <br /><br />
+                            <div style="width:auto;float:left;clear:left" class="panel-footer">
+                                <a style="float:left;margin-right:1%" class="btn btn-sm btn-success" href="/Post/Edit/@post.PostId">
+                                    Edit
+                                </a>
+                                <form style="overflow:hidden" method="post" action="/Post/Delete/@post.PostId">
+                                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                    <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        }
+
                     </div>
                 </li>
             }
+
         </ul>
 
     }

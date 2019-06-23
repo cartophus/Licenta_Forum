@@ -69,6 +69,7 @@
     width: 75%;
     display: block;
     margin: auto;
+    min-height: 70vh;
 }
 
 .AdminButton {

@@ -12,7 +12,7 @@
             <br />
             @Html.Label("CategoryName", "Category name")
             <br />
-            @Html.EditorFor(m => m.CategoryName)
+            @Html.EditorFor(m => m.CategoryName, new { htmlAttributes = new { @class = "form-control", @width = "75%" }, })
             @Html.ValidationMessageFor(model => model.CategoryName, null, new { @class = "text-danger " })
             <br /><br />
             <button class="btn btn-sm btn-success" type="submit">Save changes</button>

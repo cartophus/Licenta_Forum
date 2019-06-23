@@ -15,19 +15,19 @@
             <br />
             @Html.Label("Title", "Thread title")
             <br />
-            @Html.EditorFor(m => m.Title)
+            @Html.EditorFor(m => m.Title, new { htmlAttributes = new { @class = "form-control", @width = "75%" }, })
             @Html.ValidationMessageFor(model => model.Title, "Title field required", new { @class = "text-danger " })
             <br /><br />
             @Html.Label("Content", "Thread content")
             <br />
-            @Html.EditorFor(m => m.Content)
+            @Html.TextArea("Content", null, new { @class = "form-control", @style = "color:white" })
             @Html.ValidationMessageFor(model => model.Content, "Content field required", new { @class = "text-danger " })
             <br /><br />
             @Html.HiddenFor(m => m.Created)
             @Html.HiddenFor(m => m.UserId)
             <br />
             <label>Select category</label>
-            @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Value", "Text"), "Select categories", new { @class = "form-control", @style="width:20%;color:white"})
+            @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Value", "Text"), "Select categories", new { @class = "form-control", @style = "width:20%;color:white" })
             <br />
             <button class="btn btn-sm btn-success" type="submit">Save changes</button>
         </form>
