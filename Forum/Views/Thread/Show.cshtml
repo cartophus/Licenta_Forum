@@ -44,7 +44,7 @@
                     <div class="vizew-post-author d-flex align-items-center py-5">
                         <div class="post-author-thumb">
                             @{
-                                var imgSrc = Model.User.UserPhoto;
+                                var imgSrc = @post.User.UserPhoto;
                             }
                             <img src="@imgSrc" alt="">
                         </div>

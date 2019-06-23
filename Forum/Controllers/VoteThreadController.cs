@@ -32,13 +32,13 @@ namespace Forum.Controllers
         }
 
         [Authorize(Roles = "User,Editor,Administrator")]
-        public ActionResult New(int id,int opinion)
+        public ActionResult New(int id, int opinion)
         {
             VoteThread vote = new VoteThread();
             
             string userId = User.Identity.GetUserId();
 
-            var entry = db.VoteThreads.Where(vt => vt.UserId == userId);
+            var entry = db.VoteThreads.Where(vt => vt.UserId == userId && vt.ThreadId == id);
             bool found = entry.Any();
 
             if(found)

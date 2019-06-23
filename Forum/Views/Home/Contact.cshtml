@@ -54,12 +54,12 @@
                         <form action="/Home/Contact/" method="post">
                             <div class="form-group">
                                 <label for="username">Username*</label>
-                                @Html.TextBoxFor(model => model.Subject, new { @class = "form-control", @id = "username" ,@cols = "30", @rows = "10"})
+                                @Html.TextBoxFor(model => model.Subject, new { @class = "form-control", @id = "username" ,@cols = "30", @rows = "10", @style="color:white"})
                                 @*<input type="text" class="form-control" id="username">*@
                             </div>
                             <div class="form-group">
                                 <label for="message">Message*</label>
-                                @Html.TextAreaFor(model => model.Body, new { @class = "form-control", @id = "message", @cols = "30", @rows = "10" })
+                                @Html.TextAreaFor(model => model.Body, new { @class = "form-control", @id = "message", @cols = "30", @rows = "10", @style = "color:white" })
                             </div>
                             <button class="btn vizew-btn mt-30" type="submit">Send</button>
                         </form>

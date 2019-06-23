@@ -75,7 +75,7 @@ namespace Forum.Controllers
                     {
                         category.CategoryName = requestCategory.CategoryName;
                         db.SaveChanges();
-                        TempData["message"] = "Categoria a fost modificata!";
+                        TempData["message"] = "Category has been modified!";
                     }
                     return RedirectToAction("Index");
                 }
