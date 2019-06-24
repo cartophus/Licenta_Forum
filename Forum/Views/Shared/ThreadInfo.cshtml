@@ -34,7 +34,7 @@
                         </a>
                     </div>
                     <br />
-                    @if (ViewBag.Function == "Show" && (ViewBag.afisareButoane == true && Model.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin))
+                    @if (ViewBag.Function == "Show" && (@Model.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin))
                     {
                         <div style="width:auto;float:left;clear:left" class="panel-footer">
                             <a style="float:left;margin-right:1%" class="btn btn-sm btn-success" href="/Thread/Edit/@Model.ThreadId">

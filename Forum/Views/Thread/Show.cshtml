@@ -52,10 +52,10 @@
                             <a href="#" class="author-name">@post.User.UserName</a>
                             <p style="word-break:break-all;">@post.Content</p>
                         </div>
-
-                        @if (ViewBag.afisareButoane == true && Model.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin)
+                        <br /><br />
+                        @if (@post.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin)
                         {
-                            <br /><br />
+
                             <div style="width:auto;float:left;clear:left" class="panel-footer">
                                 <a style="float:left;margin-right:1%" class="btn btn-sm btn-success" href="/Post/Edit/@post.PostId">
                                     Edit
